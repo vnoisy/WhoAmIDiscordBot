@@ -1,0 +1,11 @@
+
+.vs/Bot/v16/.suo
+.vs/
+vs/
+.packages/
+*.lock
+.vs/Bot/v16/Server/sqlite3/storage.ide
+packages/
+Bot/bin
+Bot/obj
+packages/Discord.Net.2.2.0/.signature.p7s
