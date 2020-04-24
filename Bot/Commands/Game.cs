@@ -23,13 +23,14 @@ namespace Bot.Commands
         {
             IVoiceChannel chId = (Context.User as IVoiceState).VoiceChannel;
             var channel = Context.Client.GetChannel(chId.Id);
+            var users = channel.Users.Where(x => !x.IsBot);
             var data = Program.game.FirstOrDefault(x => x.ChannelId == chId.Id);
             if (data != null && data.ChannelId != 0)
             {
                 await ReplyAsync("Bu kanalda daha önce bir oyun oluşturulmuş ve hala devam ediyor, Lütfen " + data.User.Mention + " ulaşın.");
                 return;
             }
-            await ReplyAsync(channel.Users.Count() + " Oyuncu bulundu, oyun oluşturuluyor...");
+            await ReplyAsync(users.Count() + " Oyuncu bulundu, oyun oluşturuluyor...");
             Thread.Sleep(150);
             await ReplyAsync("Şampiyonlar alınıyor..");
             var json = webClient.DownloadString("https://raw.githubusercontent.com/vnoisy/QuesGame/master/game.json");
@@ -39,7 +40,7 @@ namespace Bot.Commands
             var random = new Random();
             var players = new List<Players>();
 
-            foreach (var item in channel.Users)
+            foreach (var item in users)
             {
                 var randomNum = randomGen(champs.Count(), players);
                 players.Add(new Players
@@ -65,7 +66,7 @@ namespace Bot.Commands
                 await item.Player.SendMessageAsync(message + "\nSıralama: " + order + "```");
             }
             Program.game.Add(new GameModel { ChannelId = chId.Id, CreatorId = Context.User.Id, User = Context.User });
-            Console.WriteLine(chId.Id + " (" + chId.Name + ") kanalına " + Context.User.Id + " (" + Context.User.Username + ") tarafından " + DateTime.Now + " tarihinde oyun oluşturuldu.");
+            Console.WriteLine(Context.Guild.Name + " sunucusunda " + chId.Id + " (" + chId.Name + ") kanalına " + Context.User.Id + " (" + Context.User.Username + ") tarafından " + DateTime.Now + " tarihinde oyun oluşturuldu.");
         }
         [Command("stop")]
         public async Task StopAsync()
