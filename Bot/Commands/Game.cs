@@ -33,7 +33,8 @@ namespace Bot.Commands
             await ReplyAsync(users.Count() + " Oyuncu bulundu, oyun oluşturuluyor...");
             Thread.Sleep(150);
             await ReplyAsync("Şampiyonlar alınıyor..");
-            var json = webClient.DownloadString("https://raw.githubusercontent.com/vnoisy/WhoAmIDiscordBot/master/game.json?token=ADE6FA5YFEHA5SDU74KDUUC6UL5KI");
+            Thread.Sleep(300);
+            var json = webClient.DownloadString("https://raw.githubusercontent.com/vnoisy/WhoAmIDiscordBot/master/game.json");
             var champs = JsonConvert.DeserializeObject<List<ChampionModel>>(json);
 
             await ReplyAsync("Oyunculara özel şampiyonlar atanıyor..");
