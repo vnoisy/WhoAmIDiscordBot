@@ -27,7 +27,7 @@ namespace Bot
             _commands = new CommandService();
 
             // Avoid hard coding your token. Use an external source instead in your code.
-            string token = "****";
+            string token = "NzAyOTUwOTk0NTkzNTc5MTAw.XtlzLA.lHs2rVSRLfVANnoHgSAJLz9bB7k";
 
             _services = new ServiceCollection()
                 .AddSingleton(_client).AddSingleton(_commands).BuildServiceProvider();
