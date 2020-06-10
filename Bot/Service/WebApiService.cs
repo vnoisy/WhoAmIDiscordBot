@@ -25,6 +25,29 @@ namespace Bot.Service
                 return default(T);
             }
         }
+        public string Get(string url)
+        {
+            try
+            {
+                var data = wclient.DownloadString(url);
+                return data;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+        public void Read(string url)
+        {
+            try
+            {
+                var data = wclient.OpenRead("http://" + url);
+            }
+            catch
+            {
+
+            }
+        }
         public async Task<T> GetAsync<T>(string url)
         {
             try
@@ -88,7 +111,7 @@ namespace Bot.Service
                 return default(T);
             }
         }
-        public async Task<string> GetPostAsync(string url, Dictionary<string, string> values,string ip = "127.0.0.1")
+        public async Task<string> GetPostAsync(string url, Dictionary<string, string> values, string ip = "127.0.0.1")
         {
             try
             {

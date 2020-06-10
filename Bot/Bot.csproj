@@ -87,12 +87,18 @@
   <ItemGroup>
     <Compile Include="Commands\Fivem.cs" />
     <Compile Include="Commands\Game.cs" />
+    <Compile Include="Commands\Rainbow.cs" />
     <Compile Include="Model\ChampionModel.cs" />
     <Compile Include="Model\GameModel.cs" />
     <Compile Include="Model\Players.cs" />
+    <Compile Include="Model\SearchModel.cs" />
+    <Compile Include="Model\SteamPlayerModel.cs" />
     <Compile Include="Model\UserModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\SteamService.cs" />
+    <Compile Include="Service\ValorantService.cs" />
+    <Compile Include="Service\RainbowService.cs" />
     <Compile Include="Service\SaverService.cs" />
     <Compile Include="Service\WebApiService.cs" />
   </ItemGroup>

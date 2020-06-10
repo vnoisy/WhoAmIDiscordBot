@@ -13,5 +13,6 @@ namespace Bot.Model
         public ulong CreatorId { get; set; }
         public SocketUser User { get; set; }
         public int Id { get; set; }
+        public DateTime CreatedOn { get; set; }
     }
 }
