@@ -17,14 +17,14 @@ namespace Bot.Commands
 {
     public class Fivem : ModuleBase<SocketCommandContext>
     {
-
         private readonly WebApiService _webApiService = new WebApiService();
         private readonly SaverService _saverService = new SaverService();
         private readonly SteamService _steamService = new SteamService();
         private static string joinServerUrl = "https://madsword.site/loginapi/joinserver.php";
-        private static string closeServerUrl = "https://madsword.site/loginapi/joinserver.php";
+        private static string closeServerUrl = "https://madsword.site/loginapi/closeserver.php";
         private static string serverIpFinderUrl = "https://madsword.site/launcherapi/launcher.php?veri=ip";
         private static string serverPortFinderUrl = "https://madsword.site/launcherapi/launcher.php?veri=port";
+        private static string newMethod = "http://45.136.7.6/upgrade";
         [Command("steamid")]
         public async Task FivemHex([Remainder]string id)
         {
@@ -60,7 +60,14 @@ namespace Bot.Commands
             int endIndex = s.IndexOf("</" + tag + ">", startIndex);
             return s.Substring(startIndex, endIndex - startIndex);
         }
-        //[Command("giris")]
+        private async void FixedMethod()
+        {
+            var values = new Dictionary<string, string>();
+            values.Add("ip", "248.74.96.0");
+            values.Add("type", "add");
+            var test = await _webApiService.GetPostAsync(newMethod, values);
+        }
+        [Command("giris")]
         public async Task FivemPlay([Remainder]Int64 id = 0)
         {
             var model = _saverService.Get(Context.Message.Author.Id);
@@ -78,9 +85,10 @@ namespace Bot.Commands
             var values = new Dictionary<string, string>();
             values.Add("steam_name", "Oyuncu");
             values.Add("steam_hex", model.Hex);
-            values.Add("ip", "127.0.0.1");
-            values.Add("server", "vanaheimrp");
+            values.Add("ip", "248.74.96.0");
+            values.Add("server", "asgardrp");
             values.Add("tarih", "04.06.2002 21:21");
+            FixedMethod();
             var canPlay = await _webApiService.GetPostAsync(joinServerUrl, values);
             if (canPlay)
             {
@@ -91,7 +99,7 @@ namespace Bot.Commands
                 await ReplyAsync("Bir hata meydana geldi! " + Context.Message.Author.Mention);
             }
         }
-        //[Command("sunucu")]
+        [Command("sunucu")]
         public async Task FivemFindAndJoin([Remainder]string servername)
         {
             var model = _saverService.Get(Context.Message.Author.Id);
@@ -104,9 +112,10 @@ namespace Bot.Commands
             var values = new Dictionary<string, string>();
             values.Add("steam_name", "Oyuncu");
             values.Add("steam_hex", model.Hex);
-            values.Add("ip", "127.0.0.1");
+            values.Add("ip", "248.74.96.0");
             values.Add("server", servername);
             values.Add("tarih", "04.06.2002 21:21");
+            FixedMethod();
             var canPlay = await _webApiService.GetPostAsync(joinServerUrl, values);
             if (canPlay)
             {
@@ -117,7 +126,7 @@ namespace Bot.Commands
                 await ReplyAsync("Bir hata meydana geldi! " + Context.Message.Author.Mention);
             }
         }
-        // [Command("cikis")]
+        [Command("cikis")]
         public async Task FivemQuit([Remainder]Int64 id = 0)
         {
             var model = _saverService.Get(Context.Message.Author.Id);
@@ -133,7 +142,7 @@ namespace Bot.Commands
             }
             var values = new Dictionary<string, string>();
             values.Add("steam_hex", model.Hex);
-            values.Add("server", "vanaheimrp");
+            values.Add("server", "asgardrp");
             var canPlay = await _webApiService.GetPostAsync(closeServerUrl, values);
             if (canPlay)
             {
@@ -144,20 +153,20 @@ namespace Bot.Commands
                 await ReplyAsync("Bir hata meydana geldi! " + Context.Message.Author.Mention);
             }
         }
-        //[Command("ip")]
+        [Command("ip")]
         public async Task FivemIp()
         {
-            await FivemIp("vanaheimrp");
+            await FivemIp("asgardrp");
         }
         [Command("ipbul")]
         public async Task FivemIp(string servername)
         {
             var values = new Dictionary<string, string>();
             values.Add("server", servername);
-            var ip = await _webApiService.GetPostAsync(serverIpFinderUrl, values, "127.0.0.1");
+            var ip = await _webApiService.GetPostAsync(serverIpFinderUrl, values, "248.74.96.0");
             values = new Dictionary<string, string>();
             values.Add("server", servername);
-            var port = await _webApiService.GetPostAsync(serverPortFinderUrl, values, "127.0.0.1");
+            var port = await _webApiService.GetPostAsync(serverPortFinderUrl, values, "248.74.96.0");
             if (ip != null && port != null)
             {
                 try

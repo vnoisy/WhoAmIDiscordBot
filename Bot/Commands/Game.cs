@@ -20,6 +20,12 @@ namespace Bot.Commands
 
         private readonly WebApiService api = new WebApiService();
 
+        [Command("join")]
+        public async Task JoinAsync()
+        {
+            IVoiceChannel channel = (Context.User as IVoiceState).VoiceChannel;
+            IAudioClient client = await channel.ConnectAsync();
+        }
         [Command("play")]
         public async Task SayAsync()
         {

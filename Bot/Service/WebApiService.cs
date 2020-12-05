@@ -17,7 +17,7 @@ namespace Bot.Service
         {
             try
             {
-                var data = wclient.DownloadString("http://" + url);
+                var data = wclient.DownloadString(url);
                 return JsonConvert.DeserializeObject<T>(data);
             }
             catch
